@@ -1,0 +1,69 @@
+use("learn_mongodb")
+
+// insertOne
+db.buku.insertOne(
+    {book_title: "Partikel", book_tags: "Science Fiction", author: "Dee Lestari", price: 87200, stock: 4}
+    )
+
+// insertMany
+db.buku.insertMany([
+    {
+    book_title: "Freebie and the Bean",
+    book_tags: "Action|Comedy",
+    author: "Antoine Longland",
+    price: 27748,
+    stock: 3
+    }, 
+    {
+    book_title: "Canadian Bacon",
+    book_tags: "Comedy|War",
+    author: "Filberte Hayth",
+    price: 26707,
+    stock: 1
+    }, 
+    {
+    book_title: "Warriors of Virtue",
+    book_tags: "Action|Adventure|Children|Fantasy",
+    author: "Jody Kopp",
+    price: 58501,
+    stock: 6
+    }
+    ])
+
+/* 
+show buku
+stock < 5 and price > 10000
+*/
+db.buku.find(
+    {stock: {$lt: 5}, price: {$gt: 10000}}
+)
+
+// updateOne
+db.buku.updateOne(
+    {book_title: "Partikel"},
+    {
+        $set: {"stock": 10},
+        $currentDate: {lastModified: true}
+    }
+)
+
+
+// updateMany
+db.buku.updateMany(
+    {"stock": {$lt: 4}},
+    {
+        $set: {"stock": 0},
+        $currentDate: {lastModified: true}
+    }
+)
+
+// deleteOne
+db.buku.deleteOne(
+    {book_title: "Warriors of Virtue"}
+)
+
+
+// deleteMany
+db.buku.deleteMany(
+    {"stock": 0}
+)
